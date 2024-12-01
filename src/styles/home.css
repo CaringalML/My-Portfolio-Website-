@@ -671,10 +671,19 @@
   /* Menu highlight styles */
 .desktop-menu a {
   position: relative;
-  color: white;
   text-decoration: none;
   padding: 0.5rem 1rem;
   transition: all 0.3s ease;
+}
+
+/* Dark mode menu text */
+.dark .desktop-menu a {
+  color: white;
+}
+
+/* Light mode menu text */
+.light .desktop-menu a {
+  color: #111827; /* Dark text for light mode */
 }
 
 .desktop-menu a::after {
@@ -684,7 +693,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background-color: #ff6b00; /* Change this to your preferred highlight color */
+  background-color: #f97316; /* Match your theme color */
   transition: width 0.3s ease;
 }
 
@@ -693,14 +702,9 @@
 }
 
 .desktop-menu a.active {
-  color: #ff6b00; /* Change this to your preferred highlight color */
+  color: #f97316 !important; /* Force theme color when active */
 }
 
 .desktop-menu a.active::after {
   width: 100%;
-}
-
-/* Add smooth scrolling */
-html {
-  scroll-behavior: smooth;
 }

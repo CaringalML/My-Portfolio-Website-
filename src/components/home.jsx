@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Github, Mail, Phone, Award, ChevronRight, Code, Cloud, Database, Sun, Moon, Menu, X } from 'lucide-react';
 import { Card, CardContent } from "../components/ui/card";
 import '../styles/home.css';
@@ -6,7 +6,42 @@ import '../styles/home.css';
 const Portfolio = () => {
   const [darkMode, setDarkMode] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  
+  const [activeSection, setActiveSection] = useState('hero');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const windowHeight = window.innerHeight;
+      const offset = 100; // Offset for earlier trigger
+
+      const sections = document.querySelectorAll('div[id]');
+      
+      sections.forEach((section) => {
+        const sectionTop = section.offsetTop - offset;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute('id');
+
+        if (
+          scrollPosition >= sectionTop &&
+          scrollPosition < sectionTop + sectionHeight
+        ) {
+          setActiveSection(sectionId);
+        }
+      });
+
+      // Special case for hero section when at the very top
+      if (scrollPosition < windowHeight / 2) {
+        setActiveSection('hero');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    // Initial check
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const services = [
     {
       title: "Infrastructure as Code",
@@ -57,8 +92,6 @@ const Portfolio = () => {
     }
   ];
 
-
-
   const certifications = [
     {
       title: "AWS Certified Cloud Practitioner",
@@ -69,14 +102,13 @@ const Portfolio = () => {
       image: "img/aws-cloud-practitioner.png",
       link: "https://www.credly.com/badges/b08c2526-a7ed-429c-bcc1-bfaa0fca90f3/public_url"
     },
-    
     {
       title: "AWS Certified Solutions Architect Associate",
       issuer: "Amazon Web Services (AWS)",
       status: "In Progress",
       expectedDate: "2025",
       icon: Cloud,
-      inProgress: true  // Add this flag to identify in-progress certifications
+      inProgress: true
     }
   ];
 
@@ -92,10 +124,21 @@ const Portfolio = () => {
             </div>
             
             <div className="desktop-menu">
-            <a href="#certifications">Certifications</a>
-              <a href="#services">Services</a>
-              <a href="#projects">Projects</a>
-              <a href="#contact">Contact</a>
+              <a href="#hero" className={activeSection === 'hero' ? 'active' : ''}>
+                Home
+              </a>
+              <a href="#certifications" className={activeSection === 'certifications' ? 'active' : ''}>
+                Certifications
+              </a>
+              <a href="#services" className={activeSection === 'services' ? 'active' : ''}>
+                Services
+              </a>
+              <a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>
+                Projects
+              </a>
+              <a href="#contact" className={activeSection === 'contact' ? 'active' : ''}>
+                Contact
+              </a>
               <button
                 onClick={() => setDarkMode(!darkMode)}
                 className="theme-toggle"
@@ -118,16 +161,27 @@ const Portfolio = () => {
       {isMenuOpen && (
         <div className="mobile-menu">
           <div className="mobile-menu-content">
-          <a href="#certifications">Certifications</a>
-            <a href="#services">Services</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
+            <a href="#hero" className={activeSection === 'hero' ? 'active' : ''}>
+              Home
+            </a>
+            <a href="#certifications" className={activeSection === 'certifications' ? 'active' : ''}>
+              Certifications
+            </a>
+            <a href="#services" className={activeSection === 'services' ? 'active' : ''}>
+              Services
+            </a>
+            <a href="#projects" className={activeSection === 'projects' ? 'active' : ''}>
+              Projects
+            </a>
+            <a href="#contact" className={activeSection === 'contact' ? 'active' : ''}>
+              Contact
+            </a>
           </div>
         </div>
       )}
 
       {/* Hero Section */}
-      <div className="hero-section">
+      <div id="hero" className="hero-section">
         <div className="hero-content">
           <div className="hero-grid">
             <div>
@@ -167,46 +221,45 @@ const Portfolio = () => {
         </div>
       </div>
 
-
       {/* Certifications Section */}
-<div id="certifications" className="certifications-section">
-  <div className="section-content">
-    <h2 className="section-title">Certifications</h2>
-    <div className="certifications-grid">
-    {certifications.map((cert, index) => (
-  <div key={index} className={`certification-card ${cert.inProgress ? 'in-progress' : ''}`}>
-    <div className="certification-content">
-      {cert.image ? (
-        <img 
-          src={cert.image} 
-          alt={cert.title}
-          className="certification-badge"
-        />
-      ) : (
-        <cert.icon className="certification-icon" />
-      )}
-      <h3 className="certification-title">{cert.title}</h3>
-      <p className="certification-issuer">{cert.issuer}</p>
-      {cert.inProgress ? (
-        <>
-          <span className="status-badge">In Progress</span>
-          <p className="certification-date">Expected: {cert.expectedDate}</p>
-        </>
-      ) : (
-        <>
-          <p className="certification-date">Issued: {cert.date}</p>
-          <p className="certification-id">Credential ID: {cert.credentialId}</p>
-          <a href={cert.link} target="_blank" rel="noopener noreferrer" className="view-credential">
-            View Credential
-          </a>
-        </>
-      )}
-    </div>
-  </div>
-))}
-    </div>
-  </div>
-</div>
+      <div id="certifications" className="certifications-section">
+        <div className="section-content">
+          <h2 className="section-title">Certifications</h2>
+          <div className="certifications-grid">
+            {certifications.map((cert, index) => (
+              <div key={index} className={`certification-card ${cert.inProgress ? 'in-progress' : ''}`}>
+                <div className="certification-content">
+                  {cert.image ? (
+                    <img 
+                      src={cert.image} 
+                      alt={cert.title}
+                      className="certification-badge"
+                    />
+                  ) : (
+                    <cert.icon className="certification-icon" />
+                  )}
+                  <h3 className="certification-title">{cert.title}</h3>
+                  <p className="certification-issuer">{cert.issuer}</p>
+                  {cert.inProgress ? (
+                    <>
+                      <span className="status-badge">In Progress</span>
+                      <p className="certification-date">Expected: {cert.expectedDate}</p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="certification-date">Issued: {cert.date}</p>
+                      <p className="certification-id">Credential ID: {cert.credentialId}</p>
+                      <a href={cert.link} target="_blank" rel="noopener noreferrer" className="view-credential">
+                        View Credential
+                      </a>
+                    </>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
 
       {/* Services Section */}
       <div id="services" className="services-section">

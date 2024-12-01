@@ -417,6 +417,7 @@
   /* Contact Section */
   .contact-section {
     padding: 4rem 1.5rem;
+    padding-bottom: 500px;
   }
   
   .contact-container {
@@ -665,3 +666,41 @@
   .view-credential:hover {
     text-decoration: underline;
   }
+
+
+  /* Menu highlight styles */
+.desktop-menu a {
+  position: relative;
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.desktop-menu a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #ff6b00; /* Change this to your preferred highlight color */
+  transition: width 0.3s ease;
+}
+
+.desktop-menu a:hover::after {
+  width: 100%;
+}
+
+.desktop-menu a.active {
+  color: #ff6b00; /* Change this to your preferred highlight color */
+}
+
+.desktop-menu a.active::after {
+  width: 100%;
+}
+
+/* Add smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}

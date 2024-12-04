@@ -239,11 +239,61 @@
   }
   
   .section-title {
-    font-size: 1.875rem;
+    font-size: 2.25rem;
     font-weight: 700;
     text-align: center;
     margin-bottom: 3rem;
+    position: relative;
+    padding-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
   }
+  
+  /* Add underline that matches text width */
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content; /* Match text width */
+    height: 3px;
+    background-color: #f97316; /* Orange color to match your theme */
+    border-radius: 2px;
+    width: auto; /* Allow width to match text */
+    min-width: 60px; /* Minimum width */
+    white-space: nowrap; /* Keep text on one line */
+    padding: 0 1rem; /* Add some padding on sides */
+  }
+  
+  /* Style for dark mode */
+  .dark .section-title::after {
+    background-color: #f97316;
+  }
+  
+  /* Style for light mode */
+  .light .section-title::after {
+    background-color: #f97316;
+  }
+  
+
+
+  .dark .section-title {
+    color: white; /* Ensure white text in dark mode */
+  }
+
+
+
+  .section-content {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    text-align: center;
+  }
+  
   
   .services-grid {
     display: grid;

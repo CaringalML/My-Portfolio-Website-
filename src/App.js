@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Portfolio from './components/home';
+import Frontend from './components/frontend-infra';
+import Backend from './components/backend-infra';
 
 function App() {
   return (
@@ -8,7 +10,8 @@ function App() {
       <div className="app">
         <Routes>
           <Route path="/" element={<Portfolio />} />
-          {/* Add more routes here as needed */}
+          <Route path="/student-record-system-react-aws-infrastructure" element={<Frontend />} />
+          <Route path="/backend" element={<Backend />} />
         </Routes>
       </div>
     </Router>

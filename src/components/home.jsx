@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Github, Mail, Phone, Award, ChevronRight, Code, Cloud, Database, Sun, Moon, Menu, X } from 'lucide-react';
 import { Card, CardContent } from "../components/ui/card";
 import '../styles/home.css';
 
 const Portfolio = () => {
+  // Initialize navigation hook for routing
+  const navigate = useNavigate();
+  
+  // State management
   const [darkMode, setDarkMode] = useState(true);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
 
+  // Scroll handling effect
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const windowHeight = window.innerHeight;
-      const offset = 100; // Offset for earlier trigger
+      const offset = 100;
 
       const sections = document.querySelectorAll('div[id]');
       
@@ -29,19 +35,27 @@ const Portfolio = () => {
         }
       });
 
-      // Special case for hero section when at the very top
       if (scrollPosition < windowHeight / 2) {
         setActiveSection('hero');
       }
     };
 
     window.addEventListener('scroll', handleScroll);
-    // Initial check
     handleScroll();
-
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Project click handler for navigation
+  //change route name
+  const handleProjectClick = (projectIndex) => {
+    if (projectIndex === 0) {
+      navigate('/student-record-system-react-aws-infrastructure');
+    } else if (projectIndex === 1) {
+      navigate('/backend');
+    }
+  };
+
+  // Services data
   const services = [
     {
       title: "Infrastructure as Code",
@@ -63,9 +77,10 @@ const Portfolio = () => {
     }
   ];
 
+  // Projects data with route information
   const projects = [
     {
-      title: "AWS Lambda Automation",
+      title: "Student Record System React AWS Infrastructure",
       description: "Serverless automation for ECS Fargate deployments",
       image: "/svg/frontend-architecture.svg",
       services: ["Lambda", "ECS", "Fargate"],
@@ -75,10 +90,12 @@ const Portfolio = () => {
         "Lambda Function",
         "ECS Cluster",
         "Fargate Service"
-      ]
+      ],
+      //change route name
+      route: '/student-record-system-react-aws-infrastructure'
     },
     {
-      title: "Full-Stack CRUD App",
+      title: "Student Record System Laravel RESTful API AWS Infrastructure",
       description: "Containerized application with CI/CD pipeline",
       image: "/api/placeholder/600/400",
       services: ["ECS", "ECR", "RDS"],
@@ -88,10 +105,12 @@ const Portfolio = () => {
         "CloudFront",
         "ECS",
         "Aurora"
-      ]
+      ],
+      route: '/backend'
     }
   ];
 
+  // Certifications data
   const certifications = [
     {
       title: "AWS Certified Cloud Practitioner",
@@ -114,7 +133,7 @@ const Portfolio = () => {
 
   return (
     <div className={`portfolio-container ${darkMode ? 'dark' : 'light'}`}>
-      {/* Navigation */}
+      {/* Navigation Bar */}
       <nav className="nav-container">
         <div className="nav-content">
           <div className="nav-wrapper">
@@ -157,7 +176,7 @@ const Portfolio = () => {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       {isMenuOpen && (
         <div className="mobile-menu">
           <div className="mobile-menu-content">
@@ -268,7 +287,7 @@ const Portfolio = () => {
           <div className="services-grid">
             {services.map((service, index) => (
               <div key={index} className="service-card">
-                <div className="service-card-gradient"></div>
+                <div className={`service-card-gradient bg-gradient-to-br ${service.color}`}></div>
                 <service.icon className="service-icon" />
                 <h3 className="service-title">{service.title}</h3>
                 <p className="service-description">{service.description}</p>
@@ -278,13 +297,17 @@ const Portfolio = () => {
         </div>
       </div>
 
-      {/* Projects Section */}
+      {/* Projects Section - Now with Clickable Cards */}
       <div id="projects" className="projects-section">
         <div className="section-content">
           <h2 className="section-title">Featured Cloud Projects</h2>
           <div className="projects-grid">
             {projects.map((project, index) => (
-              <div key={index} className="project-card">
+              <div 
+                key={index} 
+                className="project-card cursor-pointer hover:shadow-lg transition-shadow duration-300"
+                onClick={() => handleProjectClick(index)}
+              >
                 <img 
                   src={project.image}
                   alt={project.title}
@@ -319,7 +342,11 @@ const Portfolio = () => {
                     </div>
                   </div>
 
-                  <a href={project.github} className="project-link">
+                  <a 
+                    href={project.github} 
+                    className="project-link"
+                    onClick={(e) => e.stopPropagation()} // Prevents triggering card click when clicking GitHub link
+                  >
                     <Github className="w-5 h-5" />
                     View Source Code
                     <ChevronRight className="w-4 h-4" />

@@ -1,0 +1,243 @@
+/* Modern AWS Documentation Styles */
+:root {
+    --aws-orange: #f97316;
+    --aws-blue: #0073bb;
+    --aws-dark: #232f3e;
+    --aws-light: #fbfbfb;
+    --aws-border: #e5e5e5;
+    --aws-hover: #ffeee6;
+  }
+  
+  .docs-container {
+    min-height: 100vh;
+    background-color: var(--aws-light);
+  }
+  
+  /* Modern Header */
+  .docs-header {
+    background: var(--aws-dark);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  
+  .docs-header-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0.75rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+  }
+  
+  .header-button:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Modern Sidebar */
+  .docs-sidebar {
+    position: sticky;
+    top: 76px;
+    height: calc(100vh - 76px);
+    overflow-y: auto;
+    padding-right: 1rem;
+  }
+  
+  .sidebar-nav {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: var(--aws-dark);
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
+  }
+  
+  .sidebar-link:hover {
+    background: var(--aws-hover);
+    border-left-color: var(--aws-orange);
+  }
+  
+  .sidebar-link.active {
+    background: var(--aws-hover);
+    border-left-color: var(--aws-orange);
+    color: var(--aws-orange);
+  }
+  
+  /* Modern Cards */
+  .docs-card {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  
+  .docs-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-content {
+    padding: 2rem;
+  }
+  
+  /* Modern Code Blocks */
+  .code-preview {
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .code-block {
+    background: #1b1f23;
+    color: #e1e1e1;
+    padding: 1.5rem;
+    font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    position: relative;
+  }
+  
+  .code-block::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  /* Modern Feature Grid */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+  
+  .feature-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid var(--aws-border);
+    transition: transform 0.2s ease;
+  }
+  
+  .feature-item:hover {
+    transform: translateY(-2px);
+  }
+  
+  /* Modern Info Boxes */
+  .info-box {
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin: 1.5rem 0;
+    position: relative;
+    padding-left: 3rem;
+  }
+  
+  .info-box .icon {
+    position: absolute;
+    left: 1rem;
+    top: 1.25rem;
+  }
+  
+  .info-box.info {
+    background: #f1f8ff;
+    border: 1px solid #cae1ff;
+  }
+  
+  .info-box.warning {
+    background: #fff8f1;
+    border: 1px solid #ffe4cc;
+  }
+  
+  .info-box.tip {
+    background: #f1fff8;
+    border: 1px solid #ccffe4;
+  }
+  
+  /* Modern Typography */
+  .docs-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--aws-dark);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  
+  .section-title {
+    font-size: 1.75rem;
+    font-weight: 600;
+    color: var(--aws-dark);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .subsection-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--aws-dark);
+    margin: 1.5rem 0 1rem;
+  }
+  
+  /* Modern Steps */
+  .step-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid var(--aws-border);
+    margin-bottom: 1rem;
+  }
+  
+  .step-number {
+    width: 2rem;
+    height: 2rem;
+    background: var(--aws-orange);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .docs-header-content {
+      padding: 0.75rem 1rem;
+    }
+    
+    .mobile-nav {
+      background: white;
+      border-radius: 8px;
+      padding: 0.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--aws-border);
+    }
+  }
